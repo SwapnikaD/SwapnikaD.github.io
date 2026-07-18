@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="description"
+    content="Personal academic portfolio featuring research interests, projects, and blog posts."
+  />
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <title>Swapnika D</title>
+
+  <style>
+    :root {
+      --background: #f7f6f2;
+      --surface: #ffffff;
+      --text: #222222;
+      --secondary-text: #646464;
+      --accent: #b86f3e;
+      --accent-dark: #8f512b;
+      --border: #dfddd6;
+      --max-width: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      width: min(90%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* Navigation */
+
+    header {
+      background: rgba(247, 246, 242, 0.96);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .logo {
+      color: var(--accent);
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--secondary-text);
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      grid-template-columns: 1.5fr 0.7fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 6rem 0;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+
+    .affiliation {
+      color: var(--secondary-text);
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .introduction {
+      color: var(--secondary-text);
+      font-size: 1.05rem;
+      max-width: 680px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      display: inline-block;
+      font-weight: 600;
+      padding: 0.75rem 1.15rem;
+      text-decoration: none;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .button-secondary {
+      color: var(--accent);
+    }
+
+    .button-secondary:hover {
+      background: #f2e7df;
+    }
+
+	.profile-placeholder {
+	width: 280px;
+	height: 280px;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	background: #e8e4dc;
+	flex-shrink: 0;
+	}
+
+	.profile-placeholder img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	object-position: center;
+	}
+
+    /* General sections */
+
+    section {
+      padding: 5rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-heading h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-heading p {
+      color: var(--secondary-text);
+      max-width: 680px;
+    }
+
+    /* Research interests */
+
+    .research-section {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    .interest-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .interest {
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 0.65rem 1rem;
+    }
+
+    /* Projects */
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      min-height: 380px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+      transform: translateY(-4px);
+    }
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: white;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+    .project-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 1.4rem;
+    }
+
+    .project-content h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-content p {
+      color: var(--secondary-text);
+      margin-bottom: 1rem;
+    }
+
+    .technology-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .technology {
+      background: #f1eee8;
+      border-radius: 3px;
+      color: var(--secondary-text);
+      font-size: 0.8rem;
+      padding: 0.3rem 0.55rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+    }
+
+    .project-links a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Blogs */
+
+    .blog-section {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .blog-card {
+      border-top: 3px solid var(--accent);
+      padding: 1.5rem 0;
+    }
+
+    .blog-date {
+      color: var(--secondary-text);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .blog-card h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-card p {
+      color: var(--secondary-text);
+      margin-bottom: 1rem;
+    }
+
+    .blog-card a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .blog-card a:hover,
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    .all-posts {
+      margin-top: 2rem;
+    }
+
+    /* Footer */
+
+    footer {
+      color: var(--secondary-text);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Responsive design */
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 4rem 0;
+      }
+
+      .profile-placeholder {
+        max-width: 250px;
+        order: -1;
+      }
+
+      .project-grid,
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 0.8rem;
+      }
+
+      .nav-links li:nth-child(2) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a class="logo" href="#home">Swapnika D</a>
+
+      <ul class="nav-links">
+        <li><a href="#research">Research</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#blogs">Blog</a></li>
+		<li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Introduction -->
+
+    <section class="hero container" id="home">
+      <div>
+        <p class="eyebrow">Researcher · Software Engineer</p>
+
+        <h1>Swapnika D</h1>
+
+        <p class="affiliation">
+          Graduate Research Assistant in The Human and Computing Cognition Lab at Penn State University
+        </p>
+
+        <p class="introduction">
+          I am a PhD Candidate in Computer Science at Penn State University. Previously, I worked as a full-stack Software Engineer at Cotiviti for four years.
+		  I am interested in computational cognitive modeling, specifically how it interacts with sociocultural constructs. I am also fascinated by how artificial intelligence can benefit from a cognitive perspective to achieve metacognition.
+		  Because I care deeply about human thinking, behavior, perceptions, and bias, my goal is to develop socioculturally competent AI systems.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#projects">
+            View Projects
+          </a>
+
+          <a
+            class="button button-secondary"
+            href="#blogs"
+          >
+            View Blogs
+          </a>
+        </div>
+      </div>
+
+      <div class="profile-placeholder">
+       
+        <img src="assets/profile.jpg" alt="Me">
+   
+
+    
+      </div>
+    </section>
+
+    <!-- Research interests -->
+
+    <section class="research-section" id="research">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Academic focus</p>
+          <h2>Research interests</h2>
+
+          <p>
+            My research is mostly interdisciplinary trying to bridge Artificial intelligence and Cognitive Science. I view this intersection from a socially-grounded lens!
+			Trying to ground AI systems with Humanistic principles.
+          </p>
+        </div>
+
+        <div class="interest-list">
+          <span class="interest">Artificial Intelligence</span>
+          <span class="interest">Machine Learning</span>
+          <span class="interest">Computer Vision</span>
+          <span class="interest">Natural Language Processing</span>
+          <span class="interest">Human-AI Interaction</span>
+          <span class="interest">Computational Cognitive Modeling</span>
+		  <span class="interest">ACT-R</span>
+		  <span class="interest">Social cognition</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Selected work</p>
+          <h2>Projects</h2>
+
+          <p>
+            A selection of research, cognitive modeing and machine learning
+            projects.
+          </p>
+        </div>
+
+        <div class="project-grid">
+          <!-- Project 1 -->
+
+          <article class="project-card">
+            <div class="project-image">
+             <a
+				href="https://swapnikad.github.io/Pigchase/"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+             <img src="assets/Projects/One.png" alt="Project image">
+			 </a>
+            </div>
+
+            <div class="project-content">
+              <h3>Pigchase</h3>
+
+              <p>
+               Developed and evaluated multiple cognitive models -- including rational, trust-accumulation, and instance-based approaches == to investigate how the racialization of AI systems shapes user perceptions, trust formation, decision-making, and overall effectiveness in human-AI collaboration.
+
+              </p>
+
+              <div class="technology-list">
+                <span class="technology">ACT-R</span>
+                <span class="technology">Intance based learning</span>
+                <span class="technology">Social cognition</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://swapnikad.github.io/Pigchase/" aria-label="Play game">Play here</a>
+				<a href="https://github.com/SwapnikaD/ICCM26/blob/main/pigchase.gif" aria-label="Demo">Demo</a>
+                <a href="https://ieeexplore.ieee.org/abstract/document/11269626" aria-label="View Publication">Publication</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+
+          <article class="project-card">
+			<div class="project-image">
+			<a
+				href="https://mepo.thicc-lab.org/Critical-AI/mepo24_README/"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<img
+				src="assets/Projects/Two.png"
+				alt="Screenshot of MEPO 24"
+				/>
+			</a>
+			</div>
+
+            <div class="project-content">
+              <h3>RAG based LLM for responsible AI use</h3>
+
+              <p>
+                Developed an interactive LLaMA-2 chatbot with Retrieval-Augmented Generation to support Penn State MEPO students during an engineering design competition focused on historical disaster scenarios.
+				 The chatbot provided transparent, source-grounded responses from custom course materials while helping students evaluate the limitations, biases, and responsible use of AI in engineering.
+
+              </p>
+
+              <div class="technology-list">
+                <span class="technology">NLP</span>
+                <span class="technology">RAG</span>
+                <span class="technology">HuggingFace</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://mepo.thicc-lab.org/Critical-AI/mepo24_README/" aria-label="View Project Two">Website</a>
+                <a href="https://peer.asee.org/experiences-with-using-an-llm-based-chatbot-for-a-multicultural-engineering-program-orientation-experience" aria-label="View Project Two source code">Publication</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+
+          <article class="project-card">
+            <div class="project-image">
+					<a
+				href="https://huggingface.co/spaces/Nikki5/support_chatbot"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+             <img src="assets/Projects/Three.png" alt="Project image">
+			 </a>
+            </div>
+			
+
+
+            <div class="project-content">
+              <h3>How Support Persona Customization Shapes Support Quality </h3>
+
+              <p>
+                Summary: A comparative study on whether or not customizating support persona type in emotional support seeking improved the perceived support qualtity from chatbot. 
+				Result: A between-subjects experiment (N = 60) showed that customization indirectly improved support quality through perceived control -- customization increased users’ perceived control, which in turn was positively associated with support quality. 
+              </p>
+
+              <div class="technology-list">
+                <span class="technology">NLP</span>
+                <span class="technology">Data Analysis</span>
+                <span class="technology">HuggingFace</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://huggingface.co/spaces/Nikki5/support_chatbot" aria-label="View Project Three source code">HuggingFace</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Previous blog posts -->
+
+    <section class="blog-section" id="blogs">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Writing</p>
+          <h2>Recent blog posts</h2>
+
+          <p>
+            Selected articles originally published on my previous <a href = "https://mindismybusiness8.wordpress.com/" >website </a>.
+          </p>
+        </div>
+
+        <div class="blog-grid" id="blog-container">
+          <!-- Blog cards are inserted by JavaScript -->
+        </div>
+
+        <div class="all-posts">
+          <a
+            class="button button-secondary"
+            href="https://mindismybusiness8.wordpress.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View all blog posts
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+	<section  id="contact">
+    <div class="container">
+      <p>
+        © <span id="current-year"></span> Swapnika D ·
+        <a href="https://github.com/SwapnikaD">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/swapnika-dulam/">LinkedIn</a>
+      </p>
+    </div>
+	</section>
+  </footer>
+
+  <script>
+
+
+    const blogPosts = [
+     
+      {
+        title: "Astrophotography with iPhone",
+        date: "Aug 9, 2024",
+        description:
+          "Reflections on moving from a research question to a working software prototype.",
+        url: "https://mindismybusiness8.wordpress.com/2024/08/09/astrophotography-with-iphone/"
+      },
+	   {
+        title: "Why does a Monday come after Sunday?",
+        date: "July 11, 2024",
+        description:
+          "Did you ever wonder why a Monday comes after Sunday, specifically why are they named so?",
+        url: "https://mindismybusiness8.wordpress.com/2024/07/11/why-does-a-monday-come-after-sunday/"
+      },
+      {
+        title: "How to survive through this new era, with a lot of uncertainty?",
+        date: "Jan 31, 2024",
+        description:
+          "Will AI replace you or your brain?",
+        url: "https://mindismybusiness8.wordpress.com/2024/01/31/how-to-survive-through-this-new-era-with-a-lot-of-uncertainty-2/"
+      }
+    ];
+
+    const blogContainer = document.getElementById("blog-container");
+
+    blogPosts.forEach((post) => {
+      const article = document.createElement("article");
+      article.className = "blog-card";
+
+      const date = document.createElement("p");
+      date.className = "blog-date";
+      date.textContent = post.date;
+
+      const title = document.createElement("h3");
+      title.textContent = post.title;
+
+      const description = document.createElement("p");
+      description.textContent = post.description;
+
+      const link = document.createElement("a");
+      link.href = post.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Read article →";
+
+      article.append(date, title, description, link);
+      blogContainer.appendChild(article);
+    });
+
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
